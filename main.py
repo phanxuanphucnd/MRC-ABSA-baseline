@@ -139,11 +139,10 @@ def main(args, tokenizer):
                 # train logger
                 if batch_index % 50 == 0:
                     logger.info(
-                        'Epoch {}/{} - Batch {}/{}:\t Loss Sum:{}\t Forward Loss:{};{}\t Backward Loss:{};{}\t Sentiment Loss:{}'.
+                        'Epoch {}/{} - Batch {}/{}:\t Loss Sum:{}\t Forward Loss:{}\t Sentiment Loss:{}'.
                             format(epoch, args.epoch_num, batch_index, batch_num_train,
                                    round(loss_sum.item(), 4), round(f_asp_loss.item(), 4),
-                                   round(f_opi_loss.item(), 4), round(b_asp_loss.item(), 4),
-                                   round(b_opi_loss.item(), 4), round(sentiment_loss.item(), 4))
+                                   round(sentiment_loss.item(), 4))
                     )
 
             # validation
