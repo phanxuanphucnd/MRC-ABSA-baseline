@@ -85,17 +85,17 @@ class OriginalDataset(Dataset):
 
     def __str__(self):
         str = '----------------------------------------\n'
-        str += f"_forward_asp_query: {self._forward_asp_query}\n"
-        str += f"_forward_asp_answer_start: {self._forward_asp_answer_start}\n"
-        str += f"_forward_asp_answer_end: {self._forward_asp_answer_end}\n"
-        str += f"_forward_asp_query_mask: {self._forward_asp_query_mask}\n"
-        str += f"_forward_asp_query_seg: {self._forward_asp_query_seg}\n"
+        str += f"_forward_asp_query: {np.shape(self._forward_asp_query)}\n"
+        str += f"_forward_asp_answer_start: {np.shape(self._forward_asp_answer_start)}\n"
+        str += f"_forward_asp_answer_end: {np.shape(self._forward_asp_answer_end)}\n"
+        str += f"_forward_asp_query_mask: {np.shape(self._forward_asp_query_mask)}\n"
+        str += f"_forward_asp_query_seg: {np.shape(self._forward_asp_query_seg)}\n"
 
-        str += f"_sentiment_query: {self._sentiment_query}\n"
-        str += f"_sentiment_answer: {self._sentiment_answer}\n"
-        str += f"_sentiment_query_mask: {self._sentiment_query_mask}\n"
-        str += f"_sentiment_query_seg: {self._sentiment_query_seg}\n"
-        str += f"_aspect_num: {self._aspect_num}\n"
+        str += f"_sentiment_query: {np.shape(self._sentiment_query)}\n"
+        str += f"_sentiment_answer: {np.shape(self._sentiment_answer)}\n"
+        str += f"_sentiment_query_mask: {np.shape(self._sentiment_query_mask)}\n"
+        str += f"_sentiment_query_seg: {np.shape(self._sentiment_query_seg)}\n"
+        str += f"_aspect_num: {np.shape(self._aspect_num)}\n"
         str += '----------------------------------------\n'
 
         return str
@@ -124,6 +124,15 @@ class BMRCDataset(Dataset):
         self._sentiment_query_seg = self._dataset._sentiment_query_seg
         self._aspect_num = self._dataset._aspect_num
 
+        # print(f"self._forward_asp_query: {np.shape(self._forward_asp_query)}")
+        # print(f"self._forward_asp_answer_start: {np.shape(self._forward_asp_answer_start)}")
+        # print(f"self._forward_asp_answer_end: {np.shape(self._forward_asp_answer_end)}")
+        # print(f"self._forward_asp_query_mask: {np.shape(self._forward_asp_query_mask)}")
+        # print(f"self._forward_asp_query_seg: {np.shape(self._forward_asp_query_seg)}")
+        # print(f"self._sentiment_query: {np.shape(self._sentiment_query)}")
+        # print(f"self._sentiment_answer: {np.shape(self._sentiment_answer)}")
+        # print(f"self._aspect_num: {np.shape(self._aspect_num)}")
+
     def get_batch_num(self, batch_size):
         return len(self._forward_asp_query) // batch_size
 
@@ -145,7 +154,6 @@ class BMRCDataset(Dataset):
         sentiment_query_seg = self._sentiment_query_seg[item]
 
         aspect_num = self._aspect_num[item]
-
         return {
             "forward_asp_query": np.array(forward_asp_query),
             "forward_asp_answer_start": np.array(forward_asp_answer_start),
@@ -156,7 +164,7 @@ class BMRCDataset(Dataset):
             "sentiment_answer": np.array(sentiment_answer),
             "sentiment_query_mask": np.array(sentiment_query_mask),
             "sentiment_query_seg": np.array(sentiment_query_seg),
-            "aspect_num": np.array(aspect_num),
+            "aspect_num": np.array(aspect_num)
         }
 
 
