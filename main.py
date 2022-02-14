@@ -172,16 +172,15 @@ def main(args, tokenizer):
         exit(1)
         
 def test(args, model, tokenizer, batch_generator, standard, beta):
-    model.eval()
 
     asp_target_num = 0
     asp_pol_target_num = 0
-
     asp_predict_num = 0
     asp_pol_predict_num = 0
-
     asp_match_num = 0
     asp_pol_match_num = 0
+
+    model.eval()
 
     for batch_index, batch_dict in enumerate(batch_generator):
         asp_target = standard[batch_index]['asp_target']
@@ -223,7 +222,7 @@ def test(args, model, tokenizer, batch_generator, standard, beta):
         f_asp_start_index, f_asp_end_index, f_asp_prob = utils.filter_unpaired(
             f_asp_start_prob_temp, f_asp_end_prob_temp, f_asp_start_index_temp, f_asp_end_index_temp)
 
-        for idx in range(len(f_opi_start_index)):
+        for i in range(len(f_asp_start_index)):
             asp = [batch_dict['forward_asp_query'][0][j].item() for j in
                    range(f_asp_start_index[i], f_asp_end_index[i] + 1)]
             asp_ind = [f_asp_start_index[i] - 5, f_asp_end_index[i] - 5]
