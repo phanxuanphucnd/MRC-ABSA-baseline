@@ -276,15 +276,15 @@ def test(args, model, tokenizer, batch_generator, standard, beta):
                 if trip_ == trip:
                     asp_pol_match_num += 1
 
-    precision_aspect = float(asp_match_num) / float(asp_predict_num+1e-6)
-    recall_aspect = float(asp_match_num) / float(asp_target_num+1e-6)
-    f1_aspect = 2 * precision_aspect * recall_aspect / (precision_aspect + recall_aspect+1e-6)
+    precision_aspect = float(asp_match_num) / float(asp_predict_num + 1e-6)
+    recall_aspect = float(asp_match_num) / float(asp_target_num + 1e-6)
+    f1_aspect = 2 * precision_aspect * recall_aspect / (precision_aspect + recall_aspect + 1e-6)
     logger.info('Aspect - Precision: {} ; Recall: {} ; F1: {}'.format(precision_aspect, recall_aspect, f1_aspect))
 
-    precision_aspect_sentiment = float(asp_pol_match_num) / float(asp_pol_predict_num+1e-6)
-    recall_aspect_sentiment = float(asp_pol_match_num) / float(asp_pol_target_num+1e-6)
+    precision_aspect_sentiment = float(asp_pol_match_num) / float(asp_pol_predict_num + 1e-6)
+    recall_aspect_sentiment = float(asp_pol_match_num) / float(asp_pol_target_num + 1e-6)
     f1_aspect_sentiment = 2 * precision_aspect_sentiment * recall_aspect_sentiment / (
-            precision_aspect_sentiment + recall_aspect_sentiment+1e-6)
+            precision_aspect_sentiment + recall_aspect_sentiment + 1e-6)
     logger.info('Aspect-Sentiment - Precision: {} ; Recall: {} ; F1: {}'.format(
         precision_aspect_sentiment, recall_aspect_sentiment, f1_aspect_sentiment))
 
