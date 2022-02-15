@@ -1,5 +1,5 @@
 export PREPROCESS_DATA_PATH=data/14rest/preprocess
-export SAVED_MODEL_PATH=models/best_model.pt
+export SAVED_MODEL_PATH=models/
 
 #TODO: Training
 python main.py \
