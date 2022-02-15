@@ -195,9 +195,9 @@ def preprocessing(sample_list, max_len, mode='train'):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--data_path', type=str, default='./data/14lap/preprocess',
+    parser.add_argument('--data_path', type=str, default='./data/14rest/preprocess',
                         help='Path to the processed data from `data_process.py`')
-    parser.add_argument('--output_path', type=str, default='./data/14lap/preprocess',
+    parser.add_argument('--output_path', type=str, default='./data/14rest/preprocess',
                         help='Path to the saved data.')
 
     args = parser.parse_args()

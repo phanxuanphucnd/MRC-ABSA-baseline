@@ -103,6 +103,7 @@ def main(args, tokenizer):
         # training
         logger.info('Begin training...')
         best_dev_f1 = 0.
+        best_test_f1 = 0.
         for epoch in tqdm(range(start_epoch, args.epoch_num + 1)):
             model.train()
             model.zero_grad()
@@ -166,6 +167,16 @@ def main(args, tokenizer):
                 dataset=test_dataset, batch_size=1, shuffle=False, ifgpu=args.ifgpu)
             logger.info(f"Evaluate Test...")
             f1 = test(args, model, tokenizer, batch_generator_test, test_standard, args.inference_beta)
+
+            if f1 > best_test_f1:
+                best_test_f1 = f1
+                logger.info('Model saved after epoch {}'.format(epoch))
+                state = {'net': model.state_dict(), 'optimizer': optimizer.state_dict(), 'epoch': epoch}
+
+                model_dir = '/'.join(args.save_model_path.split('/')[: -1])
+                if not os.path.exists(model_dir):
+                    os.makedirs(model_dir)
+                torch.save(state, os.path.join(model_dir, 'best_model.pt'))
 
     else:
         logger.error('Error mode!')
@@ -294,10 +305,10 @@ def test(args, model, tokenizer, batch_generator, standard, beta):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Bidirectional MRC-based sentiment triplet extraction')
 
-    parser.add_argument('--data_path', type=str, default="./data/14lap/preprocess/")
+    parser.add_argument('--data_path', type=str, default="./data/14rest/preprocess/")
     parser.add_argument('--mode', type=str, default="train", choices=["train", "test"])
     parser.add_argument('--reload', type=bool, default=False)
-    parser.add_argument('--checkpoint_path', type=str, default="./model/14lap/model_final.pt")
+    parser.add_argument('--checkpoint_path', type=str, default="./model/14rest/model_final.pt")
     parser.add_argument('--save_model_path', type=str, default="./models/model.pt")
     parser.add_argument('--model_name', type=str, default="1")
 

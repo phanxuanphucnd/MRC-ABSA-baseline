@@ -44,9 +44,9 @@ def fusion_dual_pair(triplet):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--data_path", type=str, default='./data/14lap',
+    parser.add_argument("--data_path", type=str, default='./data/14rest',
                         help="Path to the dataset.")
-    parser.add_argument('--output_path', type=str, default='./data/14lap/preprocess',
+    parser.add_argument('--output_path', type=str, default='./data/14rest/preprocess',
                         help='Path to the saved data.')
 
     args = parser.parse_args()
