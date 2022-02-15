@@ -22,5 +22,5 @@ python make_data_standard.py \
 #TODO: Training
 python main.py \
   --data_path $PREPROCESS_DATA_PATH \
-  --epoch_num 30 \
+  --epoch_num 40 \
   --mode train
