@@ -7,10 +7,10 @@ from transformers import (
     BertTokenizer
 )
 
-class BMRCBertModel(nn.Module):
+class MRCBertModel(nn.Module):
     def __init__(self, args):
         hidden_size = args.hidden_size
-        super(BMRCBertModel, self).__init__()
+        super(MRCBertModel, self).__init__()
         if args.model_type == 'bert-base-uncased':
             self._bert = BertModel.from_pretrained(args.model_type)
             self._tokenizer = BertTokenizer.from_pretrained(args.model_type)

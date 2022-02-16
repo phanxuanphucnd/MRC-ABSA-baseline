@@ -8,7 +8,7 @@ import argparse
 import numpy as np
 
 from tqdm import tqdm
-from model import BMRCBertModel
+from model import MRCBertModel
 from torch.nn import functional as F
 from dataset import BMRCDataset, generate_fi_batches
 from transformers import AdamW, get_linear_schedule_with_warmup, BertTokenizer
