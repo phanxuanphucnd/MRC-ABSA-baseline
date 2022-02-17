@@ -1,4 +1,5 @@
-# ABSA-Bert-MRC-baseline
+# MRC for ABSA baseline
+
 MRC approach for Aspect-based Sentiment Analysis (ABSA) without Opinion Extraction (OE)
 
 **Paper:** [Bidirectional Machine Reading Comprehension for Aspect Sentiment Triplet Extraction](https://arxiv.org/abs/2103.07665)
