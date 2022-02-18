@@ -42,7 +42,7 @@ def main(args, tokenizer):
 
     #TODO: Init model
     logger.info(f"Initial model...")
-    model = BMRCBertModel(args)
+    model = MRCBertModel(args)
     if args.ifgpu:
         model = model.cuda()
 
