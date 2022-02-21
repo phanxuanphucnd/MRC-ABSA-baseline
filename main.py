@@ -156,7 +156,7 @@ def main(args, tokenizer):
             # save model and optimizer
             if f1 > best_dev_f1:
                 best_dev_f1 = f1
-                logger.info('Model saved after epoch {}'.format(epoch))
+                logger.info('Save best dev model.')
                 state = {'net': model.state_dict(), 'optimizer': optimizer.state_dict(), 'epoch': epoch}
 
                 if not os.path.exists(args.save_model_path):
@@ -171,7 +171,7 @@ def main(args, tokenizer):
 
             if f1 > best_test_f1:
                 best_test_f1 = f1
-                logger.info('Model saved after epoch {}'.format(epoch))
+                logger.info('Save best test model.')
                 state = {'net': model.state_dict(), 'optimizer': optimizer.state_dict(), 'epoch': epoch}
 
                 torch.save(state, os.path.join(args.save_model_path, 'best_test_model.pt'))
@@ -307,7 +307,7 @@ if __name__ == '__main__':
     parser.add_argument('--mode', type=str, default="train", choices=["train", "test"])
     parser.add_argument('--reload', type=bool, default=False)
     parser.add_argument('--checkpoint_path', type=str, default="./model/14rest/model_final.pt")
-    parser.add_argument('--save_model_path', type=str, default="./models/model.pt")
+    parser.add_argument('--save_model_path', type=str, default="./models")
     parser.add_argument('--model_name', type=str, default="1")
 
     # model hyper-parameter

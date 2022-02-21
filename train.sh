@@ -1,7 +1,7 @@
-export DATA_PATH=data/14rest
-export PREPROCESS_DATA_PATH=data/14rest/preprocess
-export PAIR_DATA_PATH=data/14rest/pair
-
+export DATA_PATH=data/14lap
+export PREPROCESS_DATA_PATH=data/14lap/preprocess
+export PAIR_DATA_PATH=data/14lap/pair
+export SAVED_MODEL_PATH=models/
 
 #TODO: Data_process
 python data_process.py \
@@ -23,4 +23,5 @@ python make_data_standard.py \
 python main.py \
   --data_path $PREPROCESS_DATA_PATH \
   --epoch_num 40 \
-  --mode train
+  --mode train \
+  --save_model_path $SAVED_MODEL_PATH

@@ -11,15 +11,15 @@ def get_text(lines):
     text_list = []
     aspect_list = []
     for line in lines:
-        temp = line.split('####')
-        assert len(temp) == 3
+        # temp = line.split('####')
+        # assert len(temp) == 3
 
-        word_list = temp[0].split()
-        aspect_label_list = [t.split('=')[-1] for t in temp[1].split()]
-        assert len(word_list) == len(aspect_label_list)
+        word_list = line.split()
+        # aspect_label_list = [t.split('=')[-1] for t in temp[1].split()]
+        # assert len(word_list) == len(aspect_label_list)
 
         text_list.append(word_list)
-        aspect_list.append(aspect_label_list)
+        # aspect_list.append(aspect_label_list)
 
     return text_list, aspect_list
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
             triplet = triple_data[i]
             text = text_list[i]
             #TODO: Valid data
-            valid_data(triplet, aspect_list[i])
+            # valid_data(triplet, aspect_list[i])
             pair_aspect, pair_sentiment = fusion_dual_pair(triplet)
 
             forward_query_list = []
