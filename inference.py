@@ -53,9 +53,14 @@ def infer(input: str=None, tokenizer: Any=None, model: Any=None, inference_beta:
     )
     forward_asp_query_mask = [1 for i in range(len(f_asp_query))]
 
-    forward_asp_query = torch.tensor(forward_asp_query).unsqueeze(0).long().cuda()
-    forward_asp_query_seg = torch.tensor(forward_asp_query_seg).unsqueeze(0).long().cuda()
-    forward_asp_query_mask = torch.tensor(forward_asp_query_mask).unsqueeze(0).float().cuda()
+    if torch.cuda.is_available():
+        forward_asp_query = torch.tensor(forward_asp_query).unsqueeze(0).long().cuda()
+        forward_asp_query_seg = torch.tensor(forward_asp_query_seg).unsqueeze(0).long().cuda()
+        forward_asp_query_mask = torch.tensor(forward_asp_query_mask).unsqueeze(0).float().cuda()
+    else:
+        forward_asp_query = torch.tensor(forward_asp_query).unsqueeze(0).long()
+        forward_asp_query_seg = torch.tensor(forward_asp_query_seg).unsqueeze(0).long()
+        forward_asp_query_mask = torch.tensor(forward_asp_query_mask).unsqueeze(0).float()
 
     f_asp_start_scores, f_asp_end_scores = model(forward_asp_query,
                                                  forward_asp_query_mask,
@@ -101,11 +106,18 @@ def infer(input: str=None, tokenizer: Any=None, model: Any=None, inference_beta:
         sentiment_query.append(tokenizer.convert_tokens_to_ids('[SEP]'))
 
         sentiment_query_seg = [0] * len(sentiment_query)
-        sentiment_query = torch.tensor(sentiment_query).long().cuda()
-        sentiment_query = torch.cat([sentiment_query, forward_asp_query[0][5:]], -1).unsqueeze(0)
-        sentiment_query_seg += [1] * forward_asp_query[0][5:].size(0)
-        sentiment_query_mask = torch.ones(sentiment_query.size(1)).float().cuda().unsqueeze(0)
-        sentiment_query_seg = torch.tensor(sentiment_query_seg).long().cuda().unsqueeze(0)
+        if torch.cuda.is_available():
+            sentiment_query = torch.tensor(sentiment_query).long().cuda()
+            sentiment_query = torch.cat([sentiment_query, forward_asp_query[0][5:]], -1).unsqueeze(0)
+            sentiment_query_seg += [1] * forward_asp_query[0][5:].size(0)
+            sentiment_query_mask = torch.ones(sentiment_query.size(1)).float().cuda().unsqueeze(0)
+            sentiment_query_seg = torch.tensor(sentiment_query_seg).long().cuda().unsqueeze(0)
+        else:
+            sentiment_query = torch.tensor(sentiment_query).long()
+            sentiment_query = torch.cat([sentiment_query, forward_asp_query[0][5:]], -1).unsqueeze(0)
+            sentiment_query_seg += [1] * forward_asp_query[0][5:].size(0)
+            sentiment_query_mask = torch.ones(sentiment_query.size(1)).float().unsqueeze(0)
+            sentiment_query_seg = torch.tensor(sentiment_query_seg).long().unsqueeze(0)
 
         sentiment_scores = model(sentiment_query, sentiment_query_mask, sentiment_query_seg, 1)
         sentiment_predicted = torch.argmax(sentiment_scores[0], dim=0).item()
@@ -141,13 +153,20 @@ if __name__ == '__main__':
                         help='Path to the pretrained model.')
 
     args = parser.parse_args()
-
+    print(f"CUDA: {torch.cuda.is_available()}")
     tokenizer = BertTokenizer.from_pretrained(args.model_type)
     model = MRCBertModel(args)
-    print(f'Loading model path: `{args.model_file_path}`.')
-    checkpoint = torch.load(args.model_file_path)
-    model.load_state_dict(checkpoint['net'])
-    model = model.cuda()
+
+    if torch.cuda.is_available():
+        print(f'Loading model path: `{args.model_file_path}`.')
+        checkpoint = torch.load(args.model_file_path)
+        model.load_state_dict(checkpoint['net'])
+        model = model.cuda()
+    else:
+        device = torch.device('cpu')
+        print(f'Loading model path: `{args.model_file_path}`.')
+        checkpoint = torch.load(args.model_file_path, map_location=device)
+        model.load_state_dict(checkpoint['net'])
 
     args.input = "Owner is pleasant and entertaining ."
 
