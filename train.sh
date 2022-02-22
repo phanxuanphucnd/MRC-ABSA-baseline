@@ -1,6 +1,6 @@
 export DATA_PATH=data/14lap
 export PREPROCESS_DATA_PATH=data/14lap/preprocess
-export PAIR_DATA_PATH=data/14lap/pair
+export PAIR_DATA_PATH=data/14lap
 export SAVED_MODEL_PATH=models/
 
 #TODO: Data_process

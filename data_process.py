@@ -9,19 +9,19 @@ from dataset import DualSample
 
 def get_text(lines):
     text_list = []
-    aspect_list = []
+    # aspect_list = []
     for line in lines:
-        # temp = line.split('####')
+        temp = line.split('####')
         # assert len(temp) == 3
 
-        word_list = line.split()
+        word_list = temp[0].split()
         # aspect_label_list = [t.split('=')[-1] for t in temp[1].split()]
         # assert len(word_list) == len(aspect_label_list)
 
         text_list.append(word_list)
         # aspect_list.append(aspect_label_list)
 
-    return text_list, aspect_list
+    return text_list
 
 
 def valid_data(triplet, aspect):
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     for dataset_type in DATASET_TYPE_LIST:
         #TODO: Read triple data
-        with open(f'{args.data_path}/pair/{dataset_type}_pair.pkl', 'rb') as f:
+        with open(f'{args.data_path}/{dataset_type}_pair.pkl', 'rb') as f:
             triple_data = pickle.load(f)
 
         #TODO: Read text
@@ -63,7 +63,7 @@ if __name__ == '__main__':
             text_lines = f.readlines()
 
         #TODO: Get text
-        text_list, aspect_list = get_text(text_lines)
+        text_list = get_text(text_lines)
 
         sample_list = []
         header_fmt = 'Processing {:>5s}'
