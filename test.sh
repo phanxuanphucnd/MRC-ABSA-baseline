@@ -1,4 +1,4 @@
-export PREPROCESS_DATA_PATH=data/14lap/preprocess
+export PREPROCESS_DATA_PATH=data/v1/14lap/preprocess
 export SAVED_MODEL_PATH=models/14lap
 
 #TODO: Training

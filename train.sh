@@ -1,7 +1,7 @@
-export DATA_PATH=data/14lap
-export PREPROCESS_DATA_PATH=data/14lap/preprocess
-export PAIR_DATA_PATH=data/14lap
-export SAVED_MODEL_PATH=models/
+export DATA_PATH=data/v1/14lap
+export PREPROCESS_DATA_PATH=data/v1/14lap/preprocess
+export PAIR_DATA_PATH=data/v1/14lap
+export SAVED_MODEL_PATH=models/14lap
 
 #TODO: Data_process
 python data_process.py \
