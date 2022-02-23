@@ -38,9 +38,6 @@ def fusion_dual_pair(triplet):
             pair_aspect.append(t[0])
             pair_sentiment.append(t[2])
 
-    print(f"pair_aspect: {len(pair_aspect)} {pair_aspect}")
-    print(f"pair_sentiment: {len(pair_sentiment)} {pair_sentiment}")
-
     return pair_aspect, pair_sentiment
 
 
