@@ -4,17 +4,17 @@ import os
 import torch
 import pickle
 import argparse
-from tqdm import  tqdm
+from tqdm import tqdm
 from dataset import DualSample
 
 def get_text(lines):
     text_list = []
     # aspect_list = []
     for line in lines:
-        temp = line.split('####')
+        # temp = line.split('####')
         # assert len(temp) == 3
 
-        word_list = temp[0].split()
+        word_list = line.split()
         # aspect_label_list = [t.split('=')[-1] for t in temp[1].split()]
         # assert len(word_list) == len(aspect_label_list)
 
@@ -38,15 +38,18 @@ def fusion_dual_pair(triplet):
             pair_aspect.append(t[0])
             pair_sentiment.append(t[2])
 
+    print(f"pair_aspect: {len(pair_aspect)} {pair_aspect}")
+    print(f"pair_sentiment: {len(pair_sentiment)} {pair_sentiment}")
+
     return pair_aspect, pair_sentiment
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--data_path", type=str, default='./data/14rest',
+    parser.add_argument("--data_path", type=str, default='./data/v2/14rest',
                         help="Path to the dataset.")
-    parser.add_argument('--output_path', type=str, default='./data/14rest/preprocess',
+    parser.add_argument('--output_path', type=str, default='./data/v2/14rest/preprocess',
                         help='Path to the saved data.')
 
     args = parser.parse_args()

@@ -53,15 +53,16 @@ def main(args, tokenizer):
         logger.info(f'Loading model path: `{args.save_model_path}`.')
         for file in os.listdir(args.save_model_path):
             file_path = os.path.join(args.save_model_path, file)
-            checkpoint = torch.load(file_path)
-            model.load_state_dict(checkpoint['net'])
-            model.eval()
+            if os.path.isfile(file_path):
+                checkpoint = torch.load(file_path)
+                model.load_state_dict(checkpoint['net'])
+                model.eval()
 
-            batch_generator_test = generate_fi_batches(
-                dataset=test_dataset, batch_size=1, shuffle=False, ifgpu=args.ifgpu)
-            # eval
-            logger.info(f'>>> Evaluating from model path: `{file_path}`')
-            f1 = test(args, model, tokenizer, batch_generator_test, test_standard, args.inference_beta)
+                batch_generator_test = generate_fi_batches(
+                    dataset=test_dataset, batch_size=1, shuffle=False, ifgpu=args.ifgpu)
+                # eval
+                logger.info(f'>>> Evaluating from model path: `{file_path}`')
+                f1 = test(args, model, tokenizer, batch_generator_test, test_standard, args.inference_beta)
 
     elif args.mode == 'train':
         train_dataset = BMRCDataset(train_data, dev_data, test_data, 'train')
